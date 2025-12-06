@@ -54,10 +54,10 @@ export const useMultimodal = (): UseMultimodalReturn => {
           });
         } else {
           // Standard Text + Search
-          // Use Gemini 2.5 Flash Lite for low-latency responses
+          // Reverting to gemini-2.5-flash as flash-lite does not reliably support tools/search yet
           response = await ai.models.generateContent({
-            model: 'gemini-flash-lite-latest',
-            contents: prompt,
+            model: 'gemini-2.5-flash',
+            contents: { parts: [{ text: prompt }] },
             config: {
               tools: [{ googleSearch: {} }]
             }
